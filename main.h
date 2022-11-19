@@ -1,11 +1,9 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 #include <stdio.h>
-#include <stdlib.h>
 #include <stdarg.h>
 #include <stddef.h>
 #include <stdarg.h>
-#include <unistd.h>
 int _printf(const char *format, ...);
 int print_char(va_list ap);
 int print_string(va_list ap);
@@ -24,8 +22,8 @@ int print_number(int n);
 int print_unsigned_number(unsigned int n);
 int _putchar(char c);
 int _puts(char *str, int ascii);
-int _nbr_len(int prmNumber);
-int _strlen_recursion(char *s);
+int nbr_len(int prmNumber);
+int s_recursion(char *s);
 int convert_alpha_numeric(int nb, int upper);
 char *convert_rot13(char *str);
 char *convert_base(unsigned long nb, unsigned int base, int upper);

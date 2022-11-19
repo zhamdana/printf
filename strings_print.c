@@ -74,11 +74,9 @@ char *str_ptr(char *str)
 	{
 		return (NULL);
 	}
-
 	for (loop = 0; loop < s_recursion(str) + 1; loop++)
 	{
 		s[loop] = str[loop];
 	}
-
 	return (s);
 }
