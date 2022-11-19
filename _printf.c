@@ -1,69 +1,75 @@
-#include "main.h"
-/**
- * conver_func - chooses function to convert character
- * @a: character requiring check
- * Return: NULL
- */
-int (*conver_func(const char a))(va_list)
-{
-	int k = 0;
+#include <stdarg.h>
+#include "holberton.h"
+#include <stddef.h>
 
-	op_t fp[] = {
+/**
+ * get_op - select function for conversion char
+ * @c: char to check
+ * Return: pointer to function
+ */
+
+int (*get_op(const char c))(va_list)
+{
+	int i = 0;
+
+	flags_p fp[] = {
 		{"c", print_char},
-		{"s", print_string},
-		{"%", print_percent}
-		{"d", print_int},
-		{"i", print_int},
+		{"s", print_str},
+		{"i", print_nbr},
+		{"d", print_nbr},
 		{"b", print_binary},
-		{"u", print_unsigned},
 		{"o", print_octal},
-		{"x", print_hex_l},
-		{"X", print_hex_u},
-		{"S", print_string_unprintable},
+		{"x", print_hexa_lower},
+		{"X", print_hexa_upper},
+		{"u", print_unsigned},
+		{"S", print_str_unprintable},
+		{"r", print_str_reverse},
 		{"p", print_ptr},
-		{"r", print_string_reverse},
-		{"R", print_R},
+		{"R", print_rot13},
+		{"%", print_percent}
 	};
-	while (k < 14)
+	while (i < 14)
 	{
-		if (a == fp[k].a[0])
+		if (c == fp[i].c[0])
 		{
-			return (fp[k].f);
+			return (fp[i].f);
 		}
-		k++;
+		i++;
 	}
 	return (NULL);
 }
+
 /**
- * _printf - operates like printf function
+ * _printf - Reproduce behavior of printf function
  * @format: format string
- * Return: returns printed character value
+ * Return: value of printed chars
  */
+
 int _printf(const char *format, ...)
 {
-	va_list op;
-	int add = 0, i = 0;
+	va_list ap;
+	int sum = 0, i = 0;
 	int (*func)();
 
 	if (!format || (format[0] == '%' && format[1] == '\0'))
 		return (-1);
-	va_start(op, format);
+	va_start(ap, format);
 
 	while (format[i])
 	{
 		if (format[i] == '%')
 		{
 			if (format[i + 1] != '\0')
-				func = conver_func(format[i + 1]);
+				func = get_op(format[i + 1]);
 			if (func == NULL)
 			{
 				_putchar(format[i]);
-				add++;
+				sum++;
 				i++;
 			}
 			else
 			{
-				add += func(op);
+				sum += func(ap);
 				i += 2;
 				continue;
 			}
@@ -71,10 +77,10 @@ int _printf(const char *format, ...)
 		else
 		{
 			_putchar(format[i]);
-			add++;
+			sum++;
 			i++;
 		}
 	}
-	va_end(op);
-	return (add);
+	va_end(ap);
+	return (sum);
 }
