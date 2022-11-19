@@ -27,7 +27,7 @@ int s_recursion(char *s);
 int convert_alpha_numeric(int nb, int upper);
 char *convert_rot13(char *str);
 char *convert_base(unsigned long nb, unsigned int base, int upper);
-char *_strdup(char *str);
+char *str_ptr(char *str);
 char *convert_base_pointer(unsigned long p);
 /**
  * struct flags_printf - convert struct to function
