@@ -1,79 +1,81 @@
+#include <stdarg.h>
 #include "main.h"
+#include <stddef.h>
 /**
- * choose_operation - choose function to convert character
+ * get_op - choose function to convert character
  * @c: check character
  * Return: return NULL
  */
-int (*choose_operation(const char c))(va_list)
+int (*get_op(const char c))(va_list)
 {
-	int k = 0;
+	int i = 0;
 
-	conv_func fp[] = {
-		{"c", print_character},
-		{"s", print_string},
-		{"i", print_int},
-		{"d", print_int},
+	flags_p fp[] = {
+		{"c", print_char},
+		{"s", print_str},
+		{"i", print_nbr},
+		{"d", print_nbr},
 		{"b", print_binary},
 		{"o", print_octal},
-		{"x", print_hexa_l},
-		{"X", print_hexa_u},
+		{"x", print_hexa_lower},
+		{"X", print_hexa_upper},
 		{"u", print_unsigned},
-		{"S", print_unprintable},
-		{"r", print_reverse},
+		{"S", print_str_unprintable},
+		{"r", print_str_reverse},
 		{"p", print_ptr},
 		{"R", print_rot13},
 		{"%", print_percent}
 	};
-	while (k < 14)
+	while (i < 14)
 	{
-		if (c == fp[k].c[0])
+		if (c == fp[i].c[0])
 		{
-			return (fp[k].f);
+			return (fp[i].f);
 		}
-		k++;
+		i++;
 	}
 	return (NULL);
 }
 /**
  * _printf - the same as printf function
  * @format: string format
- * Return: return add
+ * Return: return sum
  */
 int _printf(const char *format, ...)
 {
-	va_list op;
-	int add = 0, k = 0;
+	va_list ap;
+	int sum = 0, i = 0;
 	int (*func)();
 
 	if (!format || (format[0] == '%' && format[1] == '\0'))
 		return (-1);
-	va_start(op, format);
-	while (format[k])
+	va_start(ap, format);
+	while (format[i])
 	{
-		if (format[k] == '%')
+		if (format[i] == '%')
 		{
-			if (format[k + 1] != '\0')
-				func = choose_operation(format[k + 1]);
+			if (format[i + 1] != '\0')
+				func = get_op(format[i + 1]);
 			if (func == NULL)
 			{
-				_putchar(format[k]);
-				add++;
-				k++;
+				_putchar(format[i]);
+				sum++;
+				i++;
 			}
 			else
 			{
-				add += func(op);
-				k += 2;
+				sum += func(ap);
+				i += 2;
 				continue;
 			}
 		}
 		else
 		{
-			_putchar(format[k]);
-			add++;
-			k++;
+			_putchar(format[i]);
+			sum++;
+			i++;
 		}
 	}
-	va_end(op);
-	return (add);
+	va_end(ap);
+	return (sum);
 }
