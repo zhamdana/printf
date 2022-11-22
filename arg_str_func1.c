@@ -1,10 +1,13 @@
 #include "main.h"
+#include <stdarg.h>
+#include <stdlib.h>
+#include <unistd.h>
 /**
- * print_character - print single char
+ * print_char - print single char
  * @ap: arg list
- * Return: return
+ * Return: return 1
  */
-int print_character(va_list ap)
+int print_char(va_list ap)
 {
 	char c = va_arg(ap, int);
 
@@ -16,96 +19,96 @@ int print_character(va_list ap)
 	return (1);
 }
 /**
- * print_string - print string
+ * print_str - print string
  * @ap: arg list
  * Return: return printed character number
  */
-int print_string(va_list ap)
+int print_str(va_list ap)
 {
-	char *argt = va_arg(ap, char *);
-	int add = 0;
+	char *argument = va_arg(ap, char *);
+	int sum = 0;
 
-	if (!argt)
+	if (!argument)
 	{
-		add += _puts("(null)", 0);
-		return (add);
+		sum += _puts("(null)", 0);
+		return (sum);
 	}
-	return (_puts(argt, 0));
+	return (_puts(argument, 0));
 }
 /**
  * print_unprintable - unprinted characters
  * @ap: arg list
  * Return: return printed character number
  */
-int print_unprintable(va_list ap)
+int print_str_unprintable(va_list ap)
 {
-	char *argt = va_arg(ap, char *);
-	int add = 0;
+	char *argument = va_arg(ap, char *);
+	int sum = 0;
 
-	if (!argt)
+	if (!argument)
 	{
-		add += _puts("(null)", 0);
-		return (add);
+		sum += _puts("(null)", 0);
+		return (sum);
 	}
-	return (_puts(argt, 1));
+	return (_puts(argument, 1));
 }
 /**
- * print_reverse - reverse a string
+ * print_str_reverse - reverse a string
  * @ap: arg list
- * Return: return add
+ * Return: return sum
  */
-int print_reverse(va_list ap)
+int print_str_reverse(va_list ap)
 {
-	char *argt = va_arg(ap, char *), *str;
-	int i, j, k, l, add = 0;
+	char *argument = va_arg(ap, char *), *str;
+	int size, left, limit, right, sum = 0;
 
-	if (!argt)
+	if (!argument)
 	{
-		add += _puts("%r", 0);
-		return (add);
+		sum += _puts("%r", 0);
+		return (sum);
 	}
-	i = _strlen_recursion(argt);
-	l = i - 1;
-	k = (i % 2 == 0) ? (i + 1) / 2 : (i / 2);
-	str = malloc(iof(char) * i + 1);
+	size = _strlen_recursion(argument);
+	right = size - 1;
+	limit = (size % 2 == 0) ? (size + 1) / 2 : (size / 2);
+	str = malloc(sizeof(char) * size + 1);
 	if (str == NULL)
 	{
 		return (0);
 	}
-	if (i % 2 != 0)
+	if (size % 2 != 0)
 	{
-		str[k] = argt[k];
+		str[limit] = argument[limit];
 	}
-	for (j = 0; j < k; j++)
+	for (left = 0; left < limit; left++)
 	{
-		str[j] = argt[l];
-		str[l] = argt[j];
-		l--;
+		str[left] = argument[right];
+		str[right] = argument[left];
+		right--;
 	}
-	str[i] = '\0';
-	add = _puts(str, 0);
+	str[size] = '\0';
+	sum = _puts(str, 0);
 	free(str);
-	return (add);
+	return (sum);
 }
 /**
  * print_rot13 - print string
  * @ap: arg list
- * Return: return add
+ * Return: return sum
  */
 int print_rot13(va_list ap)
 {
-	int add = 0;
-	char *str, *argt = va_arg(ap, char*);
+	int sum = 0;
+	char *str, *argument = va_arg(ap, char*);
 
-	if (!argt)
+	if (!argument)
 	{
-		add += _puts("%R", 0);
-		return (add);
+		sum += _puts("%R", 0);
+		return (sum);
 	}
-	str = convert_rot13(argt);
+	str = convert_rot13(argument);
 	if (!str)
 		return (0);
-	add = _puts(str, 0);
+	sum = _puts(str, 0);
 	free(str);
-	return (add);
+	return (sum);
 }
