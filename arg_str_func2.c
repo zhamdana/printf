@@ -1,0 +1,10 @@
+#include "main.h"
+/**
+ * print_percent -  print percent character
+ * @args: character
+ * Return: percent character
+ */
+int print_percent(va_list args __attribute__((unused)))
+{
+	return (_putchar('%'));
+}
