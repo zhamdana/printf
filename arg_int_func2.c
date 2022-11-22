@@ -1,4 +1,7 @@
+#include <stdarg.h>
 #include "main.h"
+#include <limits.h>
+#include <stdlib.h>
 /**
  * print_unsigned - manage unsigned int
  * @ap: arg list
@@ -11,26 +14,26 @@ int print_unsigned(va_list ap)
 	return (print_unsigned_number(argument));
 }
 /**
- * print_ptr - print adress
+ * print_ptr - print address
  * @ap: arg void
- * Return: return add
+ * Return: return sum
  */
 int print_ptr(va_list ap)
 {
 	char *str;
-	int add = 0;
-	unsigned long ptr = (unsigned long) va_arg(ap, void*);
+	int sum = 0;
+	unsigned long p = (unsigned long) va_arg(ap, void*);
 
-	if (!ptr)
+	if (!p)
 	{
-		add += _puts("(nil)", 0);
-		return (add);
+		sum += _puts("(nil)", 0);
+		return (sum);
 	}
-	str = convert_base_pointer(ptr);
+	str = convert_base_pointer(p);
 	if (!str)
 		return (0);
-	add += _puts("0x", 0);
-	add += _puts(str, 0);
+	sum += _puts("0x", 0);
+	sum += _puts(str, 0);
 	free(str);
-	return (add);
+	return (sum);
 }
