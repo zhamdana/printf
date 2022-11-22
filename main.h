@@ -32,7 +32,7 @@ char *convert_base(unsigned long nb, unsigned int base, int upper);
 char *_strdup(char *str);
 char *convert_base_pointer(unsigned long p);
 /**
- * conv_printf - struct for function conversion
+ * struct conv_printf - struct for function conversion
  * @c: string
  * @f: pointer to function
  */
