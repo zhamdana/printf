@@ -1,22 +1,17 @@
 #ifndef MAIN_H
 #define MAIN_H
 #include <stdarg.h>
-#include <stddef.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <limits.h>
 int _printf(const char *format, ...);
-int print_character(va_list ap);
-int print_string(va_list ap);
-int print_int(va_list ap);
+int print_char(va_list ap);
+int print_str(va_list ap);
+int print_nbr(va_list ap);
 int print_binary(va_list ap);
 int print_octal(va_list ap);
-int print_hexa_l(va_list ap);
-int print_hexa_u(va_list ap);
+int print_hexa_lower(va_list ap);
+int print_hexa_upper(va_list ap);
 int print_unsigned(va_list ap);
-int print_unprintable(va_list ap);
-int print_reverse(va_list ap);
+int print_str_unprintable(va_list ap);
+int print_str_reverse(va_list ap);
 int print_ptr(va_list ap);
 int print_rot13(va_list ap);
 int print_percent(va_list ap __attribute__((unused)));
@@ -32,13 +27,13 @@ char *convert_base(unsigned long nb, unsigned int base, int upper);
 char *_strdup(char *str);
 char *convert_base_pointer(unsigned long p);
 /**
- * struct conv_printf - struct for function conversion
+ * struct flags_printf - struct conversion to function
  * @c: string
  * @f: pointer to function
  */
-typedef struct conv_printf
+typedef struct flags_printf
 {
 	char *c;
 	int (*f)(va_list);
-} conv_func;
+} flags_p;
 #endif
