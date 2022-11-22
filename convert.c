@@ -71,6 +71,7 @@ char *convert_rot13(char *str)
 	int i = 0;
 	char *s;
 	int size = _strlen_recursion(str);
+
 	s = malloc(sizeof(char) * size + 1);
 	if (!s)
 		return (0);
