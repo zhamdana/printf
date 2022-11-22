@@ -36,7 +36,7 @@ int print_str(va_list ap)
 	return (_puts(argument, 0));
 }
 /**
- * print_unprintable - unprinted characters
+ * print_str_unprintable - unprinted characters
  * @ap: arg list
  * Return: return printed character number
  */
