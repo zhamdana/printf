@@ -1,3 +1,5 @@
+#include <unistd.h>
+#include <stdlib.h>
 #include "main.h"
 /**
  * _putchar - writes the character c to stdout
@@ -9,7 +11,7 @@ int _putchar(char c)
 	return (write(1, &c, 1));
 }
 /**
- * _puts - write all character from string to stdout
+ * _puts - write all char from string to stdout
  * @str: string to print
  * @ascii: enable ascii restriction
  * Return: return add
@@ -17,27 +19,27 @@ int _putchar(char c)
 int _puts(char *str, int ascii)
 {
 	char *s;
-	int i = 0, add = 0;
+	int i = 0, sum = 0;
 
 	while (str[i])
 	{
 		if (((str[i] >= 0 && str[i] < 32) || str[i] >= 127) && ascii)
 		{
 			s = convert_base(str[i], 16, 1);
-			add += write(1, "\\x", 2);
+			sum += write(1, "\\x", 2);
 			if (str[i] >= 0 && str[i] < 16)
-				add += _putchar('0');
-			add += _puts(s, 0);
+				sum += _putchar('0');
+			sum += _puts(s, 0);
 			free(s);
 			i++;
 		}
 		else
 		{
-			add += _putchar(str[i]);
+			sum += _putchar(str[i]);
 			i++;
 		}
 	}
-	return (add);
+	return (sum);
 }
 /**
  * _strlen_recursion - return string length
@@ -63,7 +65,7 @@ int _strlen_recursion(char *s)
 char *_strdup(char *str)
 {
 	char *s;
-	int loop;
+	int cLoop;
 
 	if (str == NULL)
 	{
@@ -74,9 +76,11 @@ char *_strdup(char *str)
 	{
 		return (NULL);
 	}
-	for (loop = 0; loop < _strlen_recursion(str) + 1; loop++)
+
+	for (cLoop = 0; cLoop < _strlen_recursion(str) + 1; cLoop++)
 	{
-		s[loop] = str[loop];
+		s[cLoop] = str[cLoop];
 	}
+
 	return (s);
 }
